@@ -148,7 +148,7 @@ public class Oraculo {
             
             
         //1 fase, escreve o tanto que quiser até chegar a 100 pontos
-        InOut.MsgSemIcone("Fase 0", "Sua palavra deve ter uma pontuação total de 100 pontos\nEu sei, você não sabe os pontos de cada letra...\nEntão tente deduzir!");
+        InOut.MsgSemIcone("Fase Aprendizado", "Sua palavra deve ter uma pontuação total de 100 pontos\nEu sei, você não sabe os pontos de cada letra...\nEntão tente deduzir!");
         do
         {
              String palavra = InOut.leString("Insira sua palavra:").toLowerCase();
@@ -159,16 +159,108 @@ public class Oraculo {
                     if (tabelaPontuacao.containsKey(letra)){
                         Integer valor = tabelaPontuacao.get(letra);
                         soma += valor;
-                        System.out.println("Pontuacao" + soma);
                     }
                 }
+                 
              }
              else{
-                 System.out.println("Palavra inválida!");
+                 InOut.MsgDeAviso("Palavra inválida!", "Estávamos preparados para isso...\nDigite uma palavra válida.");
+             }
+             //falta inserir a logica das vidas
+             if(soma >= 100){
+                 InOut.MsgSemIcone("Parabéns!", "Você passou dessa fase com " + soma + " pontos");
+             }
+             else{
+                 InOut.MsgSemIcone("Quase lá..", "Sua pontuação atual: " + soma + " pontos");
              }
         }
         while(soma < 100);
+        
+        //2 fase tem 3 chances se as palavras nao somarem 600 pontos perde uma vida
+        
+         InOut.MsgSemIcone("Fase Economia", "Esta fase contém 3 rodadas.\nAo total sua pontuação deve ser maior ou igual a 600");
+        do
+        {
+            soma = 0;
+            for(int i = 0; i < 3; i++){
+                String palavra = InOut.leString("Insira sua palavra:").toLowerCase();
+                if(dicionario.contains(palavra))
+                {
+                    for(char letra : palavra.toCharArray()){
+                        if (tabelaPontuacao.containsKey(letra)){
+                            Integer valor = tabelaPontuacao.get(letra);
+                            soma += valor;
+                        }
+                    }  
+                }
+                else{
+                    InOut.MsgDeAviso("Palavra inválida!", "Estávamos preparados para isso...\nDigite uma palavra válida.");  
+                }
+                
+                if(soma >= 600){
+                 InOut.MsgSemIcone("Parabéns!", "Você passou dessa fase com " + soma + " pontos");
+                }
+                else if(soma > 300){
+                    InOut.MsgSemIcone("Não desista!", "Sua pontuação atual: " + soma + " pontos");
+                }
+                else{
+                    InOut.MsgSemIcone("Quase lá..", "Sua pontuação atual: " + soma + " pontos");
+                }
+            }
+            
+            //falta inserir a logica das vidas
+             
+             
+        }
+        while(soma < 600);
+        
+        //fase precisao: digitar duas palavras acima de 300 pontos mas a palavra tem que ter no maximo 6 letras
        
+        InOut.MsgSemIcone("Fase Precisão", "Esta fase contém 2 rodadas.\nAo total sua pontuação deve ser maior ou igual a 600");
+        InOut.MsgSemIcone("", "Achou fácil?\nNão se empolgue..");
+        InOut.MsgSemIcone("", "Sua palavra pode ter no máximo 6 letras hahaha");
+        do
+        {
+            soma = 0;
+            for(int i = 0; i < 2; i++){
+                String palavra = InOut.leString("Insira sua palavra:").toLowerCase();
+                
+                if(palavra.length() <= 6){
+                    if(dicionario.contains(palavra))
+                    {
+                        for(char letra : palavra.toCharArray()){
+                            if (tabelaPontuacao.containsKey(letra)){
+                                Integer valor = tabelaPontuacao.get(letra);
+                                soma += valor;
+                            }
+                        }  
+                    }
+                    else{
+                        InOut.MsgDeAviso("Palavra inválida!", "Estávamos preparados para isso...\nDigite uma palavra válida.");  
+                    } 
+                    
+                    if(soma >= 300){
+                        InOut.MsgSemIcone("Parabéns!", "Você passou dessa fase com " + soma + " pontos");
+                    }
+                    else if(soma > 150){
+                        InOut.MsgSemIcone("Não desista!", "Sua pontuação atual: " + soma + " pontos");
+                    }
+                    else{
+                        InOut.MsgSemIcone("Quase lá..", "Sua pontuação atual: " + soma + " pontos");
+                    }
+
+                }
+                else{
+                    InOut.MsgDeAviso("Palavra inválida!", "Sua palavra deve conter no máximo 6 letras!");
+                }
+                
+            }
+            
+            //falta inserir a logica das vidas
+             
+             
+        }
+        while(soma < 300);
         
         
         return level02Completo;
