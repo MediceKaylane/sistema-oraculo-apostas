@@ -28,14 +28,27 @@ void main() {
     
     //Objeto guerreiro: Já atribuindo o seu nome pelo o usuario e atribuindo o objeto bolsa a ele
     Guerreiro guerreiro = new Guerreiro (InOut.leString("Insira o nome do guerreiro:"), bolsaGuerreiro);
+    do{
+        if(guerreiro.verificarNome() == false){
+        
+        guerreiro.getName(InOut.leString("Insira o nome do Oraculo novamente:")); //tratamento de erro nome guerreiro
+        }
+    }
+    while(guerreiro.verificarNome() == false);
+    
     
     //Objeto oraculo
     Oraculo oraculo = new Oraculo (InOut.leString("Insira o nome do Oraculo:"), guerreiro); 
+    do{
+        if(oraculo.verificarNome() == false){
+        
+        oraculo.getName(InOut.leString("Insira o nome do Oraculo novamente:")); //tratamento de erro nome oraculo
+        }
+    }
+    while(oraculo.verificarNome() == false);
     
     
-                 
-
     oraculo.loadLevel01();
-    
+    oraculo.loadLevel02(); 
     
 }
