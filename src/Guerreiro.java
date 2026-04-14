@@ -60,9 +60,15 @@ public class Guerreiro {
         this.qntdVidas--;
     }
     
+    public void aumentarVida(){
+        this.qntdVidas++;
+    }
+    
     public void getbolsa (int itemId)
     {
         myBolsa.equiparItem(itemId);
     }
+    
+
    
 }
