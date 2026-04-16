@@ -24,6 +24,7 @@ public class Oraculo {
     private String nome;
     private Guerreiro warrior;
     private List<Charada> charadas = new ArrayList<>();
+    private List<Integer> palpites = new ArrayList<>();
 
     public Oraculo(String nome, Guerreiro warrior) {
         this.nome = nome;
@@ -104,6 +105,7 @@ public class Oraculo {
             
             
             int respostaJogador = InOut.leInt(warrior.getNome() + ", " + "qual o seu palpite?");         //Recebe o palpite do jogador
+            palpites.add(respostaJogador);
                 
                 if(respostaJogador == resposta){                                                    //Se o jogador acertar, a Oráculo avisa o acerto
                     InOut.MsgSemIcone(this.nome, "Parabéns!\n Você completou o primeiro nível");
