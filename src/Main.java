@@ -7,6 +7,8 @@ void main() {
     
      //Objeto Bolsa criado
      Bolsa bolsaGuerreiro = new Bolsa();  
+     
+     
     
      //Objetos itens
     Item item0 = new Item (0, "Capacete de Ferro", false);
@@ -47,9 +49,11 @@ void main() {
     }
     while(oraculo.verificarNome() == false);
     
+    Musica.tocar("src/Musica Background.wav");
     
     oraculo.loadLevel01();
     oraculo.loadLevel02();
     oraculo.loadLevel03();
+    
     
 }

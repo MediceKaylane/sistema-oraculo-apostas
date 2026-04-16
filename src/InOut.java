@@ -245,7 +245,7 @@ public class InOut {
         public static void iconeGuerreiro(String frase){
 
             ImageIcon icon = new ImageIcon(
-                Guerreiro.class.getResource("/img/guerreiro.jpeg")
+                "src/img/guerreiro.jpeg"
             );
 
             JOptionPane.showMessageDialog(
@@ -261,7 +261,7 @@ public class InOut {
             String Entrada;
 
             ImageIcon icon = new ImageIcon(
-                Guerreiro.class.getResource("/img/guerreiro.jpeg")
+                "src/img/guerreiro.jpeg"
             );
 
             Entrada = (String) JOptionPane.showInputDialog( 
@@ -282,7 +282,7 @@ public class InOut {
             boolean erro;
 
             ImageIcon icon = new ImageIcon(
-                Guerreiro.class.getResource("/img/guerreiro.jpeg")
+                "src/img/guerreiro.jpeg"
             );
 
             do {
@@ -326,7 +326,7 @@ public class InOut {
         public static void iconeOraculo(String nome, String frase){
 
             ImageIcon icon = new ImageIcon(
-                Guerreiro.class.getResource("/img/oraculo.jpeg")
+                "src/img/oraculo.jpeg"
             );
 
             JOptionPane.showMessageDialog(
@@ -342,7 +342,7 @@ public class InOut {
             String Entrada;
 
             ImageIcon icon = new ImageIcon(
-                Guerreiro.class.getResource("/img/oraculo.jpeg")
+                "src/img/oraculo.jpeg"
             );
 
             Entrada = (String) JOptionPane.showInputDialog( 

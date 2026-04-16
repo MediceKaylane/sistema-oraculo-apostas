@@ -25,6 +25,7 @@ public class Oraculo {
     private Guerreiro warrior;
     private List<Charada> charadas = new ArrayList<>();
     private List<Integer> palpites = new ArrayList<>();
+    private List<String> palavras = new ArrayList<>();
 
     public Oraculo(String nome, Guerreiro warrior) {
         this.nome = nome;
@@ -328,7 +329,17 @@ public class Oraculo {
         InOut.iconeOraculo(this.nome, "Sua palavra deve ter uma pontuação total de 100 pontos\nEu sei, você não sabe os pontos de cada letra...\nEntão tente deduzir!");
         do
         {
-             String palavra = InOut.leStringGuerreiro("Insira sua palavra:").toLowerCase();
+            String palavra;
+            
+            while(true){
+                palavra = InOut.leStringGuerreiro("Insira sua palavra:").toLowerCase();
+                
+                if(palavras.contains(palavra)){
+                 InOut.iconeOraculo(this.nome, "Você já usou essa palavra, seja mais criativo.");
+                }
+                else{break;}
+            }
+            palavras.add(palavra);
              
              if(dicionario.contains(palavra))
              {
@@ -375,7 +386,19 @@ public class Oraculo {
             
             soma = 0;
             for(int i = 0; i < 3; i++){
-                String palavra = InOut.leStringGuerreiro("Insira sua palavra:").toLowerCase();
+                String palavra;
+                        
+                while(true){
+                    palavra = InOut.leStringGuerreiro("Insira sua palavra:").toLowerCase();
+                
+                    if(palavras.contains(palavra)){
+                        InOut.iconeOraculo(this.nome, "Você já usou essa palavra, seja mais criativo.");
+                    }
+                    else{break;}
+                }
+                
+            palavras.add(palavra);
+            
                 if(dicionario.contains(palavra))
                 {
                     for(char letra : palavra.toCharArray()){
@@ -431,7 +454,18 @@ public class Oraculo {
             
             soma = 0;
             for(int i = 0; i < 2; i++){
-                String palavra = InOut.leStringGuerreiro("Insira sua palavra:").toLowerCase();
+                String palavra;
+                        
+                while(true){
+                    palavra = InOut.leStringGuerreiro("Insira sua palavra:").toLowerCase();
+                
+                    if(palavras.contains(palavra)){
+                        InOut.iconeOraculo(this.nome, "Você já usou essa palavra, seja mais criativo.");
+                    }
+                    else{break;}
+                }
+                
+            palavras.add(palavra);
                 
                 if(palavra.length() <= 6){
                     if(dicionario.contains(palavra))
