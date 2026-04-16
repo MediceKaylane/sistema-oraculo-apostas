@@ -276,6 +276,51 @@ public class InOut {
             return Entrada;
         }
         
+        public static int leIntGuerreiro(String frase){
+            int num = 0;
+            String entrada;
+            boolean erro;
+
+            ImageIcon icon = new ImageIcon(
+                Guerreiro.class.getResource("/img/guerreiro.jpeg")
+            );
+
+            do {
+                try {
+                    entrada = (String) JOptionPane.showInputDialog(
+                        null,
+                        frase,
+                        "Entrada de dados",
+                        JOptionPane.QUESTION_MESSAGE,
+                        icon,
+                        null,
+                        null
+                    );
+
+                    // se cancelar
+                    if (entrada == null) {
+                        return -1;
+                    }
+
+                    num = Integer.parseInt(entrada);
+                    erro = false;
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Digite um número inteiro válido!",
+                        ">>> ERRO <<<",
+                        JOptionPane.ERROR_MESSAGE,
+                        icon
+                    );
+                    erro = true;
+                }
+
+            } while (erro);
+
+            return num;
+        }
+        
         
 
         public static void iconeOraculo(String nome, String frase){

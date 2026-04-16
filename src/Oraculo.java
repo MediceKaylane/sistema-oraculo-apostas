@@ -104,7 +104,7 @@ public class Oraculo {
             
             
             
-            int respostaJogador = InOut.leInt(warrior.getNome() + ", " + "qual o seu palpite?");         //Recebe o palpite do jogador
+            int respostaJogador = InOut.leIntGuerreiro(warrior.getNome() + ", " + "qual o seu palpite?");         //Recebe o palpite do jogador
             palpites.add(respostaJogador);
                 
                 if(respostaJogador == resposta){                                                    //Se o jogador acertar, a Oráculo avisa o acerto
@@ -197,7 +197,7 @@ public class Oraculo {
                 }
                 
                 //Recebe a resposta do jogador em letrar minúsculas e sem espaços. Ex: buraco, um buraco, o buraco, etc
-                respostaJogador = InOut.leString("Insira sua resposta (sem acentos :)):").toLowerCase().replace(" ", "");
+                respostaJogador = InOut.leStringGuerreiro("Insira sua resposta (sem acentos :)):").toLowerCase().replace(" ", "");
 
                 if(respostaJogador.contains(respostaCharada)){
                     //Caso o jogador acerte de primeira define a variavel dePrimeira como true
@@ -210,7 +210,7 @@ public class Oraculo {
                 }
                 else{
                     //Caso o jogador erre, aumenta o numero de tentativas e diminui uma vida
-                    InOut.MsgDeErro(this.nome, "Errado, tenta de novo:");
+                    InOut.iconeOraculo(this.nome, "Errado, tenta de novo:");
                     tentativas++;
                     warrior.diminuirVida();
                 }
@@ -326,7 +326,7 @@ public class Oraculo {
         InOut.iconeOraculo(this.nome, "Sua palavra deve ter uma pontuação total de 100 pontos\nEu sei, você não sabe os pontos de cada letra...\nEntão tente deduzir!");
         do
         {
-             String palavra = InOut.leString("Insira sua palavra:").toLowerCase();
+             String palavra = InOut.leStringGuerreiro("Insira sua palavra:").toLowerCase();
              
              if(dicionario.contains(palavra))
              {
@@ -373,7 +373,7 @@ public class Oraculo {
             
             soma = 0;
             for(int i = 0; i < 3; i++){
-                String palavra = InOut.leStringOraculo("Insira sua palavra:").toLowerCase();
+                String palavra = InOut.leStringGuerreiro("Insira sua palavra:").toLowerCase();
                 if(dicionario.contains(palavra))
                 {
                     for(char letra : palavra.toCharArray()){
