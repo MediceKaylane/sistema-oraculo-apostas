@@ -65,8 +65,12 @@ public class Oraculo {
         }
     }
     
-
-    
+    //relatorio
+    public void relatorio (){
+        InOut.MsgSemIcone(this.nome, "Estatisticas do jogo:\n" + "Vidas Iniciais: " + warrior.getVidaInicial() + "\n");
+    }
+   
+      
     public boolean loadLevel01 (){
         boolean level01Completo = false;
         int resposta = random.nextInt(99) + 1;
