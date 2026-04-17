@@ -10,9 +10,9 @@ public class Guerreiro {
     Random random = new Random();
     
    private String nome;
-   private int qntdVidas;
-   private int vidaInicial;
+   private int qntdVidas, vidaInicial, vidasPerdidas;
    private Bolsa myBolsa; 
+   private boolean pedidoMisericordia = false;
 
     public Guerreiro(String nome, Bolsa myBolsa) {
         this.nome = nome;
@@ -29,7 +29,7 @@ public class Guerreiro {
     //tratamento de erro nome oraculo
     public boolean verificarNome (){
         if(this.nome.isBlank() || this.nome.isEmpty()){
-            InOut.MsgDeAviso("Nome Inválido!", "Dê um nome para o coitado");
+            InOut.MsgDeAviso("Nome Inválido!", "Dê um nome para o Guerreiro");
             return false;
         }
         else{
@@ -52,14 +52,25 @@ public class Guerreiro {
         return qntdVidas;
     }
 
+    public boolean isPedidoMisericordia() {
+        return pedidoMisericordia;
+    }
+    
+
     
     public int getVidaInicial() {
         return vidaInicial;
     }
+
+    public int getVidasPerdidas() {
+        return vidasPerdidas;
+    }
+    
    
     
     public void diminuirVida(){
         this.qntdVidas--;
+        vidasPerdidas++;
     }
     
     
@@ -77,6 +88,12 @@ public class Guerreiro {
     public boolean itemEquipado (int itemId)
     {
         return myBolsa.itemEquipado(itemId);
+    }
+    
+    public String vidaExtra(){
+        InOut.MsgSemIcone("Oráculo", "Suas vidas acabaram, você deseja misericórdia?");
+        this.pedidoMisericordia = true;
+        return InOut.leString("Faça seu pedido de misericórdia");
     }
    
 }

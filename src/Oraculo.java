@@ -24,6 +24,8 @@ public class Oraculo {
     private String nome;
     private Guerreiro warrior;
     private List<Charada> charadas = new ArrayList<>();
+    private List<Integer> palpites = new ArrayList<>();
+    private List<String> palavras = new ArrayList<>();
 
     public Oraculo(String nome, Guerreiro warrior) {
         this.nome = nome;
@@ -57,13 +59,25 @@ public class Oraculo {
     //tratamento de erro nome oraculo
     public boolean verificarNome (){
         if(this.nome.isBlank() || this.nome.isEmpty()){
-            InOut.MsgDeAviso("Nome Inválido!", "Dê um nome para o coitado");
+            InOut.MsgDeAviso("Nome Inválido!", "Dê um nome para o Oráculo");
             return false;
         }
         else{
             return true;
         }
     }
+    
+    public boolean decidirVidaExtra(String pedidoMisericordia){
+        boolean vidaExtra = false;
+        
+        if(pedidoMisericordia.length() > 5){
+            warrior.aumentarVida();
+            vidaExtra = true;
+        }
+        
+        return vidaExtra;
+    }
+    
 
     
     public boolean loadLevel01 (){
@@ -72,25 +86,32 @@ public class Oraculo {
         System.out.println("numero sorteado:" + resposta);
         
         //explicar para o usuario o jogo 
-            InOut.MsgSemIcone(this.nome, "Neste nível você deve acertar qual número foi sorteado de 1 a 100");
+            InOut.iconeOraculo(this.nome, "Sei que você não se lembra de nada...mas eu vou te ajudar a sair desse lugar. \nAnos atrás o mundo foi repartido em dois e você ficou aqui comigo... no Mundo Perdido");
+            InOut.iconeOraculo(this.nome, "Sua saída é composta de 3 desafios:\nA passagem pela ruína da tribo antiga, \nOs abismos onde a gravidade não existe  \nA luta contra os guardas do portal.");
+            InOut.iconeOraculo(this.nome, "No primeiro desafio você deve acertar: \nQual número foi sorteado de 1 a 100 para a tribo liberar sua passagem para o abismo");
         
         
         for(int i = 0; i < warrior.getVidaInicial() + 1; i++){
             
-            if(warrior.getQntdVidas() == 0){                                          //Avisa que o jogador perdeu e encerra o programa caso as vidas
-                InOut.MsgDeErro(this.nome, "Suas vidas acabaram! Você perdeu!");        //tenham acabado
+            if(warrior.getQntdVidas() == 0){                                            //Avisa que o jogador perdeu e encerra o programa caso as vidas
+                if(warrior.isPedidoMisericordia() == false){
+                    this.decidirVidaExtra(warrior.vidaExtra());
+                }
+                
+                InOut.iconeOraculo(this.nome, "Suas vidas acabaram! \nVocê perdeu e fica no Mundo Perdido comigo!");        //tenham acabado
                 System.exit(0);
             }
             
             //qtnd vidas do usuario
-            InOut.MsgSemIcone(this.nome, "Sua quantidade de vidas atual: " + warrior.getQntdVidas() + " vidas.");
+            InOut.iconeOraculo(this.nome, "Sua quantidade de vidas atual: " + warrior.getQntdVidas() + " vidas.");
             
             
             
-            int respostaJogador = InOut.leInt(warrior.getNome() + ", " + "qual o seu palpite?");         //Recebe o palpite do jogador
+            int respostaJogador = InOut.leIntGuerreiro(warrior.getNome() + ", " + "qual o seu palpite? (numeros de 0 a 100)");         //Recebe o palpite do jogador
+            palpites.add(respostaJogador);
                 
                 if(respostaJogador == resposta){                                                    //Se o jogador acertar, a Oráculo avisa o acerto
-                    InOut.MsgSemIcone(this.nome, "Parabéns!\n Você completou o primeiro nível");
+                    InOut.iconeOraculo(this.nome, "Parabéns!\n Você conseguiu atravessar a ruína! A tribo antiga te liberou!");
                     level01Completo = true;
                     
                     if(tentativasLevel01 < 4){              //Caso o jogador acerte na primeira tentativa, equipa o item definido
@@ -102,10 +123,10 @@ public class Oraculo {
                 } else{
                     
                     if(respostaJogador > resposta){                                                                 //Caso o jogador erre, da as dicas de
-                        InOut.MsgDeAviso(this.nome, "Uma dica: o número secreto é menor que o seu palpite");       //maior ou menor do que o palpite
+                        InOut.iconeOraculo(this.nome, "Uma dica: o número secreto é menor que o seu palpite");       //maior ou menor do que o palpite
                     } 
                     else if(respostaJogador < resposta){
-                        InOut.MsgDeAviso(this.nome, "Uma dica: o número secreto é maior que o seu palpite");
+                        InOut.iconeOraculo(this.nome, "Uma dica: o número secreto é maior que o seu palpite");
                     }
                     
                   warrior.diminuirVida();                     //Guerreiro perde uma vida e tentativas do nível 1 aumenta
@@ -132,11 +153,11 @@ public class Oraculo {
         charadas.add(new Charada("O que é, o que é:\nQuanto mais você usa, mais fino ele fica?", "lapis"));
         
         //Explicação da segunda fase
-        InOut.MsgSemIcone(this.nome, "Parabéns você chegou no nível 2!");
-        InOut.MsgSemIcone(this.nome, "Sua quantidade de vidas atual: " + warrior.getQntdVidas() + " vidas.");
-        InOut.MsgSemIcone(this.nome, "Deixa eu te explicar as regras:");
-        InOut.MsgSemIcone(this.nome, "Eu vou te dar 4 charadas, a sua tarefa é acertar as respostas de cada uma.\nSe você não acertar...\nPerde uma vida.");
-        InOut.MsgSemIcone(this.nome, "As charadas são simples, qualquer um acertaria...\nVamos testar suas capacidades:");
+        InOut.iconeOraculo(this.nome, "Parabéns você chegou no abismo onde a gravidade não existe e ganhou 5 vidas para enfrentar esse desafio! Vamos lá...");
+        InOut.iconeOraculo(this.nome, "Sua quantidade de vidas atual: " + warrior.getQntdVidas() + " vidas.");
+        InOut.iconeOraculo(this.nome, "Deixa eu te explicar as regras para resistir:");
+        InOut.iconeOraculo(this.nome, "Eu vou te dar 4 charadas, a sua tarefa é acertar as respostas de cada uma.\nSe você não acertar...\nPerde uma vida.");
+        InOut.iconeOraculo(this.nome, "Vamos testar suas capacidades:");
         
         //Começa as charadas
         //Rodas o loop 4 vezes, cada vez setando a charada e resposta como a charada em sua respectiva posição dentro da lista
@@ -145,37 +166,45 @@ public class Oraculo {
             
             //No início de cada charada define que o jogador ainda não acertou de primeira
             dePrimeira = false;
-            InOut.MsgSemIcone(this.nome, charadas.get(i).pergunta);
+            InOut.iconeOraculo(this.nome, charadas.get(i).pergunta);
             respostaCharada = charadas.get(i).resposta;
             
             switch(i){
                 case 0:
                     if(warrior.itemEquipado(6)){
-                        InOut.MsgSemIcone("Pedra Supreme", "Uma dica:\nA resposta é buraco :)");
+                        InOut.iconeOraculo("Pedra Supreme", "Como acertou o número de primeira concedo-lhes a resposta dessa charada com o poder da Pedra Supreme");
+                        InOut.iconeOraculo("Pedra Supreme", "buraco");
                     }
                 case 1:
                     if(warrior.itemEquipado(0)){
-                        InOut.MsgSemIcone("Capacete de Ferro", "Uma dica:\nÉ algo molhado");
+                        InOut.iconeOraculo("Capacete de Ferro", "Você acertou a charada anterior de primeira concedo-lhes o Capacete de Ferro que contém uma dica");
+                        InOut.iconeOraculo("Capacete de Ferro", "Dica:\nÉ algo molhado");
                     }
                 case 2:
                     if(warrior.itemEquipado(2)){
-                        InOut.MsgSemIcone("Escudo de Madeira", "Uma dica:\nComeça com a");
+                        InOut.iconeOraculo("Escudo de Madeira", "Você acertou a charada anterior de primeira concedo-lhes o Escudo de Madeira que contém uma dica");
+                        InOut.iconeOraculo("Escudo de Madeira", "Dica:\nComeça com a");
                     }
                 case 3:
                     if(warrior.itemEquipado(3)){
-                        InOut.MsgSemIcone("Botas de Couro", "Uma dica:\nTem 5 letras");
+                        InOut.iconeOraculo("Botas de Couro", "Você acertou a charada anterior de primeira concedo-lhes as Botas de Couro que contém uma dica");
+                        InOut.iconeOraculo("Botas de Couro", "Dica:\nTem 5 letras");
                     }
             }
                 
             //Enquanto o jogador não acertar, a oráculo vai continuar pedindo a resposta até que ele não tenha mais vidas
             while(true){
                 if(warrior.getQntdVidas() == 0){
-                    InOut.MsgDeErro(this.nome, "Suas vidas acabaram! Você perdeu!");        
+                    if(warrior.isPedidoMisericordia() == false){
+                    this.decidirVidaExtra(warrior.vidaExtra());
+                }
+                    
+                    InOut.iconeOraculo(this.nome, "Suas vidas acabaram! \nVocê perdeu e fica no Mundo Perdido comigo!");        
                     System.exit(0);
                 }
                 
                 //Recebe a resposta do jogador em letrar minúsculas e sem espaços. Ex: buraco, um buraco, o buraco, etc
-                respostaJogador = InOut.leString("Insira sua resposta (sem acentos :)):").toLowerCase().replace(" ", "");
+                respostaJogador = InOut.leStringGuerreiro("Insira sua resposta (sem acentos :)):").toLowerCase().replace(" ", "");
 
                 if(respostaJogador.contains(respostaCharada)){
                     //Caso o jogador acerte de primeira define a variavel dePrimeira como true
@@ -183,12 +212,12 @@ public class Oraculo {
                         dePrimeira = true;
                     }
                         
-                    InOut.MsgSemIcone(this.nome, "Parabéns!\nVocê acertou a " + (i+1) + "° charada");
+                    InOut.iconeOraculo(this.nome, "Parabéns!\nVocê acertou a " + (i+1) + "° charada");
                     break;
                 }
                 else{
                     //Caso o jogador erre, aumenta o numero de tentativas e diminui uma vida
-                    InOut.MsgDeErro(this.nome, "Errado, tenta de novo:");
+                    InOut.iconeOraculo(this.nome, "Errado, tenta de novo:");
                     tentativas++;
                     warrior.diminuirVida();
                 }
@@ -209,7 +238,7 @@ public class Oraculo {
                     case 3:
                         warrior.equiparItem(4);
                         warrior.aumentarVida();
-                        InOut.MsgSemIcone("Peitoral de Malha", "Pode deixar que eu sou resistente.\nvocê ganhou mais uma vida.");
+                        InOut.MsgSemIcone("Peitoral de Malha", "Pode deixar que eu sou resistente.\nvocê ganhou mais uma vida com o poder do Peitoral de Malha.");
                         break;
                     }
 
@@ -220,7 +249,7 @@ public class Oraculo {
         //Se o jogador passou por todas as charadas, define levelCompleto como true
         levelCompleto = true;
         
-        InOut.MsgSemIcone(this.nome, "Você acertou todas?\nMeus parabéns, essas não estavam tão faceis assim");
+        InOut.iconeOraculo(this.nome, "Você acertou todas?\nMeus parabéns, Essas não estavam tão faceis assim! Agora você pode enfrentar os guardas do portal e ser livre!!");
         return levelCompleto;
     }
     
@@ -253,7 +282,7 @@ public class Oraculo {
         }
         catch(Exception erro)
         {
-            InOut.MsgDeErro("opss, deu red", erro.getMessage());
+            InOut.iconeOraculo("opss, deu red", erro.getMessage());
         }
         
         // Criando a tabela de pontuação
@@ -290,21 +319,32 @@ public class Oraculo {
         //Entrada do usuario 
         int soma = 0;
             //introducao level03
-            InOut.MsgSemIcone(this.nome, "Uau, você chegou no último nível!");
-            InOut.MsgSemIcone(this.nome, "Sua quantidade de vidas atual: " + warrior.getQntdVidas() + " vidas.");
+            InOut.iconeOraculo(this.nome, "Uau, você chegou no último desafio! Vamos enfrentar esses guardas!!");
+            InOut.iconeOraculo(this.nome, "Sua quantidade de vidas atual: " + warrior.getQntdVidas() + " vidas.");
             
             
             //explicacao do game com um obs palavras sem potuacao 
-            InOut.MsgSemIcone(this.nome, "Agora vamos entender como o jogo funciona, ok?");
-            InOut.MsgSemIcone(this.nome, "Entendendo o Nível..\nNeste nível você digita uma palavra sem pontuação.\nCada letra tem uma pontuação diferente.\nA soma do ponto de cada letra determina sua pontuação final!");
-            InOut.MsgSemIcone("DICA", "Tem letras que valem muitos pontos\nEstas compõem palavra mais difíceis no vocabulário.");
+            InOut.iconeOraculo(this.nome, "Agora vamos entender como esse desafio funciona");
+            InOut.iconeOraculo(this.nome, "Você insere no portal celeste uma palavra sem acentos mesmo se ela tiver.\nCada letra tem uma pontuação diferente.\nA soma do ponto de cada letra determina sua pontuação final!");
+            InOut.iconeOraculo(this.nome, "Você está na era medieval nem todas as palavras do seu mundo eles reconhecem");
+            InOut.iconeOraculo("DICA:", "Nem sempre a palavra mais longa vence: \nuse letras raras para alcançar pontuações maiores.");
             
             
         //1 fase, escreve o tanto que quiser até chegar a 100 pontos
-        InOut.MsgSemIcone(this.nome, "Sua palavra deve ter uma pontuação total de 100 pontos\nEu sei, você não sabe os pontos de cada letra...\nEntão tente deduzir!");
+        InOut.iconeOraculo(this.nome, "Sua palavra deve ter uma pontuação total de 100 pontos\nEu sei, você não sabe os pontos de cada letra...\nEntão tente deduzir!");
         do
         {
-             String palavra = InOut.leString("Insira sua palavra:").toLowerCase();
+            String palavra;
+            
+            while(true){
+                palavra = InOut.leStringGuerreiro("Insira sua palavra:").toLowerCase();
+                
+                if(palavras.contains(palavra)){
+                 InOut.iconeOraculo(this.nome, "Você já usou essa palavra, seja mais criativo.");
+                }
+                else{break;}
+            }
+            palavras.add(palavra);
              
              if(dicionario.contains(palavra))
              {
@@ -317,37 +357,53 @@ public class Oraculo {
                  
              }
              else{
-                 InOut.MsgDeAviso("Palavra inválida!", "Estávamos preparados para isso...\nDigite uma palavra válida");
+                 InOut.iconeOraculo("Palavra inválida!", "Eles estavam preparados para isso...\nDigite uma palavra válida");
                  warrior.diminuirVida();
-                 InOut.MsgSemIcone(this.nome, "Sua quantidade de vidas atual: " + warrior.getQntdVidas() + " vidas.");
+                 InOut.iconeOraculo(this.nome, "Sua quantidade de vidas atual: " + warrior.getQntdVidas() + " vidas.");
              }
              if(warrior.getQntdVidas() == 0){
-                InOut.MsgDeErro(this.nome, "Suas vidas acabaram! Você perdeu!");        
+                InOut.iconeOraculo(this.nome, "Suas vidas acabaram! Você perdeu!");        
                 System.exit(0);
              }
              //falta inserir a logica das vidas
              if(soma >= 100){
-                 InOut.MsgSemIcone("Parabéns!", "Você passou dessa fase com " + soma + " pontos");
+                 InOut.iconeOraculo("Parabéns!", "Você passou dessa fase com " + soma + " pontos");
              }
              else if (soma != 0){
-                 InOut.MsgSemIcone("Quase lá..", "Sua pontuação atual: " + soma + " pontos");
+                 InOut.iconeOraculo("Quase lá..", "Sua pontuação atual: " + soma + " pontos");
              }
         }
         while(soma < 100);
         
         //2 fase tem 3 chances se as palavras nao somarem 600 pontos perde uma vida
         
-        InOut.MsgSemIcone(this.nome, "Esta fase contém 3 rodadas.\nAo total sua pontuação deve ser maior ou igual a 600");
+        InOut.iconeOraculo(this.nome, "Esta fase contém 3 rodadas.\nAo total sua pontuação deve ser maior ou igual a 600");
         do
         {
             if(warrior.getQntdVidas() == 0){
-                InOut.MsgDeErro(this.nome, "Suas vidas acabaram! Você perdeu!");        
+                if(warrior.isPedidoMisericordia() == false){
+                    this.decidirVidaExtra(warrior.vidaExtra());
+                }
+                
+                InOut.iconeOraculo(this.nome, "Suas vidas acabaram! \nVocê perdeu e fica no Mundo Perdido comigo!");        
                 System.exit(0);
             }
             
             soma = 0;
             for(int i = 0; i < 3; i++){
-                String palavra = InOut.leString("Insira sua palavra:").toLowerCase();
+                String palavra;
+                        
+                while(true){
+                    palavra = InOut.leStringGuerreiro("Insira sua palavra:").toLowerCase();
+                
+                    if(palavras.contains(palavra)){
+                        InOut.iconeOraculo(this.nome, "Você já usou essa palavra, seja mais criativo.");
+                    }
+                    else{break;}
+                }
+                
+            palavras.add(palavra);
+            
                 if(dicionario.contains(palavra))
                 {
                     for(char letra : palavra.toCharArray()){
@@ -358,17 +414,17 @@ public class Oraculo {
                     }  
                 }
                 else{
-                    InOut.MsgDeAviso("Palavra inválida!", "Estávamos preparados para isso...\nDigite uma palavra válida.");  
+                    InOut.iconeOraculo("Palavra inválida!", "Eles estavam preparados para isso...\nDigite uma palavra válida.");  
                 }
                 
                 if(soma >= 600){
-                 InOut.MsgSemIcone("Parabéns!", "Você passou dessa fase com " + soma + " pontos");
+                 InOut.iconeOraculo("Parabéns!", "Você passou dessa fase com " + soma + " pontos");
                 }
                 else if(soma < 300){
-                    InOut.MsgSemIcone("Não desista!", "Sua pontuação atual: " + soma + " pontos");
+                    InOut.iconeOraculo("Não desista!", "Sua pontuação atual: " + soma + " pontos");
                 }
                 else{
-                    InOut.MsgSemIcone("Quase lá..", "Sua pontuação atual: " + soma + " pontos");
+                    InOut.iconeOraculo("Quase lá..", "Sua pontuação atual: " + soma + " pontos");
                 }
             }
             
@@ -376,8 +432,8 @@ public class Oraculo {
                
                 warrior.diminuirVida();
                 if(warrior.getQntdVidas() != 0){
-                    InOut.MsgSemIcone(this.nome, "Tente essa fase novamente, você vai conseguir!");
-                    InOut.MsgSemIcone(this.nome, "Sua quantidade de vidas atual: " + warrior.getQntdVidas() + " vidas.");
+                    InOut.iconeOraculo(this.nome, "Tente essa fase novamente, você vai conseguir!");
+                    InOut.iconeOraculo(this.nome, "Sua quantidade de vidas atual: " + warrior.getQntdVidas() + " vidas.");
                 }
             }
              
@@ -387,19 +443,34 @@ public class Oraculo {
         
         //fase precisao: digitar duas palavras acima de 300 pontos mas a palavra tem que ter no maximo 6 letras
        
-        InOut.MsgSemIcone(this.nome, "Esta fase contém 2 rodadas.\nAo total sua pontuação deve ser maior ou igual a 300");
-        InOut.MsgSemIcone(this.nome, "Achou fácil?\nNão se empolgue..");
-        InOut.MsgSemIcone(this.nome, "Sua palavra pode ter no máximo 6 letras hahaha");
+        InOut.iconeOraculo(this.nome, "Esta fase contém 2 rodadas.\nAo total sua pontuação deve ser maior ou igual a 300");
+        InOut.iconeOraculo(this.nome, "Achou fácil?\nNão se empolgue..");
+        InOut.iconeOraculo(this.nome, "Sua palavra pode ter no máximo 6 letras");
         do
         {
             if(warrior.getQntdVidas() == 0){
-                InOut.MsgDeErro(this.nome, "Suas vidas acabaram! Você perdeu!");        
+                if(warrior.isPedidoMisericordia() == false){
+                    this.decidirVidaExtra(warrior.vidaExtra());
+                }
+                
+                InOut.iconeOraculo(this.nome, "Suas vidas acabaram! \nVocê perdeu e fica aqui no Mundo Perdido comigo!");        
                 System.exit(0);
             }
             
             soma = 0;
             for(int i = 0; i < 2; i++){
-                String palavra = InOut.leString("Insira sua palavra:").toLowerCase();
+                String palavra;
+                        
+                while(true){
+                    palavra = InOut.leStringGuerreiro("Insira sua palavra:").toLowerCase();
+                
+                    if(palavras.contains(palavra)){
+                        InOut.iconeOraculo(this.nome, "Você já usou essa palavra, seja mais criativo.");
+                    }
+                    else{break;}
+                }
+                
+            palavras.add(palavra);
                 
                 if(palavra.length() <= 6){
                     if(dicionario.contains(palavra))
@@ -412,22 +483,22 @@ public class Oraculo {
                         }  
                     }
                     else{
-                        InOut.MsgDeAviso("Palavra inválida!", "Estávamos preparados para isso...\nDigite uma palavra válida.");  
+                        InOut.iconeOraculo("Palavra inválida!", "Eles estavam preparados para isso...\nDigite uma palavra válida.");  
                     } 
                     
                     if(soma >= 300){
-                        InOut.MsgSemIcone("Parabéns!", "Você passou dessa fase com " + soma + " pontos");
+                        InOut.iconeOraculo("Parabéns!", "Você passou dessa fase com " + soma + " pontos");
                     }
                     else if(soma < 150){
-                        InOut.MsgSemIcone("Não desista!", "Sua pontuação atual: " + soma + " pontos");
+                        InOut.iconeOraculo("Não desista!", "Sua pontuação atual: " + soma + " pontos");
                     }
                     else{
-                        InOut.MsgSemIcone("Quase lá..", "Sua pontuação atual: " + soma + " pontos");
+                        InOut.iconeOraculo("Quase lá..", "Sua pontuação atual: " + soma + " pontos");
                     }
 
                 }
                 else{
-                    InOut.MsgDeAviso("Palavra inválida!", "Sua palavra deve conter no máximo 6 letras!");
+                    InOut.iconeOraculo("Palavra inválida!", "Sua palavra deve conter no máximo 6 letras!");
                 }
                 
             }
@@ -435,8 +506,8 @@ public class Oraculo {
             if(soma < 300){
                 warrior.diminuirVida();
                 if(warrior.getQntdVidas() != 0){
-                    InOut.MsgSemIcone(this.nome, "Tente essa fase novamente, você vai conseguir!");
-                    InOut.MsgSemIcone(this.nome, "Sua quantidade de vidas atual: " + warrior.getQntdVidas() + " vidas.");
+                    InOut.iconeOraculo(this.nome, "Tente essa fase novamente, você vai conseguir!");
+                    InOut.iconeOraculo(this.nome, "Sua quantidade de vidas atual: " + warrior.getQntdVidas() + " vidas.");
                 }
                 
             }
@@ -445,7 +516,7 @@ public class Oraculo {
         }
         while(soma < 300);
         
-        InOut.MsgSemIcone(this.nome, "Missão concluída " + warrior.getNome() + "!\nAté a próxima jornada!");
+        InOut.iconeOraculo(this.nome, "Missão concluída! \nVocê venceu todos os desafios e tem acesso liberado ao Novo Mundo " + warrior.getNome() + "!\nAté a próxima jornada!");
         
         
         return level03Completo = true;

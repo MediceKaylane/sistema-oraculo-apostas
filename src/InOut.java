@@ -1,4 +1,4 @@
- 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /** 
@@ -239,6 +239,124 @@ public class InOut {
 		}while (ERRO);
 		return Entrada.charAt(0);
 	}
+        
+        
+
+        public static void iconeGuerreiro(String frase){
+
+            ImageIcon icon = new ImageIcon(
+                "src/img/guerreiro.jpeg"
+            );
+
+            JOptionPane.showMessageDialog(
+                null,
+                frase,
+                "Guerreiro",
+                JOptionPane.INFORMATION_MESSAGE,
+                icon
+            );
+        }
+        
+        public static String leStringGuerreiro(String frase){
+            String Entrada;
+
+            ImageIcon icon = new ImageIcon(
+                "src/img/guerreiro.jpeg"
+            );
+
+            Entrada = (String) JOptionPane.showInputDialog( 
+                null, 
+                frase, 
+                "Entrada de dados", 
+                JOptionPane.QUESTION_MESSAGE, 
+                icon, 
+                null, 
+                null 
+            ); 
+            return Entrada;
+        }
+        
+        public static int leIntGuerreiro(String frase){
+            int num = 0;
+            String entrada;
+            boolean erro;
+
+            ImageIcon icon = new ImageIcon(
+                "src/img/guerreiro.jpeg"
+            );
+
+            do {
+                try {
+                    entrada = (String) JOptionPane.showInputDialog(
+                        null,
+                        frase,
+                        "Entrada de dados",
+                        JOptionPane.QUESTION_MESSAGE,
+                        icon,
+                        null,
+                        null
+                    );
+
+                    // se cancelar
+                    if (entrada == null) {
+                        return -1;
+                    }
+
+                    num = Integer.parseInt(entrada);
+                    erro = false;
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Digite um número inteiro válido!",
+                        ">>> ERRO <<<",
+                        JOptionPane.ERROR_MESSAGE,
+                        icon
+                    );
+                    erro = true;
+                }
+
+            } while (erro);
+
+            return num;
+        }
+        
+        
+
+        public static void iconeOraculo(String nome, String frase){
+
+            ImageIcon icon = new ImageIcon(
+                "src/img/oraculo.jpeg"
+            );
+
+            JOptionPane.showMessageDialog(
+                null,
+                frase,
+                "Oráculo",
+                JOptionPane.INFORMATION_MESSAGE,
+                icon
+            );
+        }
+        
+        public static String leStringOraculo(String frase){
+            String Entrada;
+
+            ImageIcon icon = new ImageIcon(
+                "src/img/oraculo.jpeg"
+            );
+
+            Entrada = (String) JOptionPane.showInputDialog( 
+                null, 
+                frase, 
+                "Entrada de dados", 
+                JOptionPane.QUESTION_MESSAGE, 
+                icon, 
+                null, 
+                null 
+            ); 
+            return Entrada;
+        }
+
 	
 	/**
 	 * Este metodo foi criado para mandar uma mensagem com o icone de
