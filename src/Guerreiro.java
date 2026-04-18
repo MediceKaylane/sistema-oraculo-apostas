@@ -90,9 +90,9 @@ public class Guerreiro {
     }
     
     public String vidaExtra(){
-        InOut.MsgSemIcone("Oráculo", "Suas vidas acabaram, você deseja misericórdia?");
+        InOut.iconeOraculo("Oráculo", "Suas vidas acabaram, você deseja misericórdia?");
         this.pedidoMisericordia = true;
-        return InOut.leString("Faça seu pedido de misericórdia");
+        return InOut.leStringOraculo("Apresente teu pedido de misericórdia e que ele revele humildade e seja digno de aceitação.");
     }
    
 }

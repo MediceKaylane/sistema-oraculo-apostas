@@ -87,11 +87,28 @@ public class Oraculo {
     }
     
     public void relatorioPartida(){
-        InOut.iconeOraculo(this.nome, "Ao fim da jornada, revelam-se os feitos do Guerreiro: \n"
-                + "As vidas que perdeu: " + warrior.getVidasPerdidas() + 
-                "\nOs palpites que ousou no primeiro: " + palpites 
-                + "\nDesafio e a verdade oculta do segundo: " + charadas 
-                + "\nO Guerreiro ousou ao todo " + tentativas + " tentativa(s) no terceiro");
+        String mensagem = "Ao fim da jornada, revelam-se os feitos do Guerreiro:\n"
+            + "As vidas que perdeu: " + warrior.getVidasPerdidas()
+            + "\nOs palpites que ousou no primeiro: " + palpites
+            + "\nDesafio e a verdade oculta do segundo:\n";
+
+        for (int i = 0; i < charadas.size(); i++) {
+            mensagem += charadas.get(i).resposta + "\n";
+        }
+
+        mensagem += "\nO Guerreiro ousou ao todo " + tentativas + " tentativa(s) no terceiro";
+
+        InOut.iconeOraculo(this.nome, mensagem);
+    }
+    
+    public void vencedor (){
+        InOut.iconeOraculo(this.nome, "Após superar todos os desafios, o Guerreiro " + warrior.getNome() + 
+                " conquista o Novo Mundo e tem seu nome eternizado entre os dignos.");
+    }
+    
+     public void perdedor (){
+        InOut.iconeOraculo(this.nome, "Sem forças para prosseguir, o Guerreiro" + warrior.getNome() +
+                "sucumbe aos desafios e permanece no Mundo Perdido, esquecido pelo destino.");
     }
 
 
@@ -216,7 +233,8 @@ public class Oraculo {
                     this.decidirVidaExtra(warrior.vidaExtra());
                 }
                     
-                    InOut.iconeOraculo(this.nome, "Suas vidas acabaram! \nVocê perdeu e fica no Mundo Perdido comigo!");        
+                    InOut.iconeOraculo(this.nome, "Suas vidas acabaram!");
+                    perdedor();
                     System.exit(0);
                 }
                 
@@ -355,7 +373,8 @@ public class Oraculo {
         do
         {
             if(warrior.getQntdVidas() == 0){
-                InOut.iconeOraculo(this.nome, "Suas vidas acabaram! Você perdeu!");        
+                InOut.iconeOraculo(this.nome, "Suas vidas acabaram!");
+                perdedor();
                 System.exit(0);
              }
                while(true){
