@@ -43,21 +43,35 @@ public class Oraculo {
         }
     }
     
+    /**
+     * Define o nome do Oráculo.
+     * @param name 
+     */
     //tratamento de erro nome oraculo
     public void atribuirNome (String name){
         this.nome = name; 
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public Guerreiro getWarrior() {
         return warrior;
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public List<Charada> getCharadas() {
         return charadas;
     }
     
-    
-    //tratamento de erro nome oraculo
+    /**
+     * tratamento de erro nome oraculo
+     * @return 
+     */
     public boolean verificarNome (){
         if(this.nome.isBlank() || this.nome.isEmpty()){
             return false;
@@ -67,6 +81,11 @@ public class Oraculo {
         }
     }
     
+    /**
+     * 
+     * @param pedidoMisericordia
+     * @return 
+     */
     public boolean decidirVidaExtra(String pedidoMisericordia){
         boolean vidaExtra = false;
         
@@ -78,6 +97,9 @@ public class Oraculo {
         return vidaExtra;
     }
     
+    /**
+     * 
+     */
     public void prologoIntroducao (){
         InOut.iconeOraculo(this.nome, "Sei que você não se lembra de nada...mas eu vou te ajudar a sair desse lugar. \nAnos atrás o mundo foi repartido em dois e você ficou aqui comigo... no Mundo Perdido");
         InOut.iconeOraculo(this.nome, "Sua saída é composta de 3 desafios:\nA passagem pela ruína da tribo antiga, \nOs abismos onde a gravidade não existe  \nA luta contra os guardas do portal.");
@@ -86,6 +108,7 @@ public class Oraculo {
         ", que inicia sua jornada com " + warrior.getQntdVidas() + " vidas sob seu destino.");
     }
     
+   
     public void relatorioPartida(){
         String mensagem = "Ao fim da jornada, revelam-se os feitos do Guerreiro:\n"
             + "As vidas que perdeu: " + warrior.getVidasPerdidas()
@@ -112,7 +135,16 @@ public class Oraculo {
     }
 
 
-    
+    /**
+     * Executa o primeiro nível do jogo, onde o jogador deve adivinhar
+     * um número aleatório entre 1 e 100.
+     * O jogador perde uma vida a cada erro e recebe dicas indicando
+     * se o número secreto é maior ou menor que o palpite informado.
+     * Caso acerte, o nível é concluído e pode receber uma recompensa.
+     *
+     * Se as vidas acabarem, o jogo é encerrado.
+     * @return true se o jogador completar o nível com sucesso, false caso contrário
+     */
     public boolean loadLevel01 (){
         boolean level01Completo = false;
         int resposta = random.nextInt(99) + 1;
@@ -174,6 +206,21 @@ public class Oraculo {
         return level01Completo;
     }
     
+    /**
+     * Executa o segundo nível do jogo, onde o jogador deve responder corretamente
+     * uma sequência de 4 charadas.
+     *
+     * A cada erro, o jogador perde uma vida. O jogo continua até que o jogador
+     * acerte a charada atual ou fique sem vidas.
+     *
+     * Caso o jogador acerte uma charada de primeira tentativa, ele recebe um item
+     * especial que pode conceder vantagens, como dicas nas próximas charadas
+     * ou benefícios adicionais.
+     *
+     * Se todas as charadas forem respondidas corretamente, o nível é concluído.
+     * Caso as vidas acabem, o jogo é encerrado. 
+     * @return true se o jogador completar o nível com sucesso.
+     */
     public boolean loadLevel02(){
         boolean levelCompleto = false, dePrimeira;
         String respostaCharada, respostaJogador;
@@ -288,7 +335,10 @@ public class Oraculo {
         return levelCompleto;
     }
     
-    
+    /**
+     * 
+     * @return 
+     */
     public boolean loadLevel03 () {
         
         tentativas = 0;

@@ -22,10 +22,18 @@ public class Guerreiro {
     }
     
     //tratamento de erro nome oraculo
+    /**
+     * 
+     * @param name 
+     */
     public void atribuirNome (String name){
         this.nome = name; 
     }
     
+    /**
+     * 
+     * @return 
+     */
     //tratamento de erro nome oraculo
     public boolean verificarNome (){
         if(this.nome.isBlank() || this.nome.isEmpty()){
@@ -35,32 +43,53 @@ public class Guerreiro {
             return true;
         }
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
    //Sorteia a vida do guerreiro gerando um aleatório entre 0 e 3 e somando 9, gerando entre 9 a 12 vidas.
    public int sortearVidas(){
        return ((random.nextInt(3))+9);              
    }                                                
  
-   
+   /**
+    * 
+    * @return 
+    */
     public String getNome() {
         return nome;
     }
 
-    
+    /**
+     * 
+     * @return 
+     */
     public int getQntdVidas() {
         return qntdVidas;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public boolean isPedidoMisericordia() {
         return pedidoMisericordia;
     }
     
 
-    
+    /**
+     * 
+     * @return 
+     */
     public int getVidaInicial() {
         return vidaInicial;
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public int getVidasPerdidas() {
         return vidasPerdidas;
     }
@@ -77,13 +106,20 @@ public class Guerreiro {
         this.qntdVidas++;
     }
     
-
+    /**
+     * 
+     * @param itemId 
+     */
     public void equiparItem (int itemId)
     {
         myBolsa.equiparItem(itemId);
     }
     
-
+    /**
+     * 
+     * @param itemId
+     * @return 
+     */
     public boolean itemEquipado (int itemId)
     {
         return myBolsa.itemEquipado(itemId);
