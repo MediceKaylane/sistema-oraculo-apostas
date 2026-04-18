@@ -10,7 +10,7 @@ public class Guerreiro {
     Random random = new Random();
     
    private String nome;
-   private int qntdVidas, vidaInicial, vidasPerdidas;
+   private int qntdVidas, vidaInicial, vidasPerdidas = 0;
    private Bolsa myBolsa; 
    private boolean pedidoMisericordia = false;
 

@@ -60,5 +60,8 @@ void main() {
     oraculo.loadLevel02();
     oraculo.loadLevel03();
     
+    //relatorio 
+    oraculo.relatorioPartida();
+    
     
 }
