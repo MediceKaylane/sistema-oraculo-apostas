@@ -14,10 +14,19 @@ public class Bolsa {
         
     }
 
-    
+    /**
+     * 
+     * @param itemId 
+     */
     public void equiparItem (int itemId) {
         item.get(itemId).equipar();
     }
+    
+    /**
+     * 
+     * @param itemId
+     * @return 
+     */
     public boolean itemEquipado (int itemId) {
         return item.get(itemId).itemEquipado();
     }

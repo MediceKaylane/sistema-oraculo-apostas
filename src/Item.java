@@ -37,14 +37,32 @@ public class Item {
             oraculo.getWarrior().aumentarVida();
         }
         
+        /**
+         * 
+         * @param oraculo
+         * @param idCharada
+         * @return 
+         */
         public char efeitoDicaPrimeiraLetra(Oraculo oraculo, int idCharada){
             return oraculo.getCharadas().get(idCharada).resposta.charAt(0);
         }
         
+        /**
+         * 
+         * @param oraculo
+         * @param idCharada
+         * @return 
+         */
         public int efeitoDicaQntdLetras(Oraculo oraculo, int idCharada){
             return oraculo.getCharadas().get(idCharada).resposta.length();
         }
         
+        /**
+         * 
+         * @param oraculo
+         * @param idCharada
+         * @return 
+         */
         public String efeitoDicaResposta(Oraculo oraculo, int idCharada){
             switch(idCharada){
                 case 0:
