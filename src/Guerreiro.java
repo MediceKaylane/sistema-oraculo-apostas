@@ -29,7 +29,6 @@ public class Guerreiro {
     //tratamento de erro nome oraculo
     public boolean verificarNome (){
         if(this.nome.isBlank() || this.nome.isEmpty()){
-            InOut.MsgDeAviso("Nome Inválido!", "Dê um nome para o Guerreiro");
             return false;
         }
         else{

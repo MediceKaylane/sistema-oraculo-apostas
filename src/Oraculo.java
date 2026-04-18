@@ -59,7 +59,6 @@ public class Oraculo {
     //tratamento de erro nome oraculo
     public boolean verificarNome (){
         if(this.nome.isBlank() || this.nome.isEmpty()){
-            InOut.MsgDeAviso("Nome Inválido!", "Dê um nome para o Oráculo");
             return false;
         }
         else{
@@ -93,12 +92,12 @@ public class Oraculo {
         
         for(int i = 0; i < warrior.getVidaInicial() + 1; i++){
             
-            if(warrior.getQntdVidas() == 0){                                            //Avisa que o jogador perdeu e encerra o programa caso as vidas
+            if(warrior.getQntdVidas() == 0){                                            //Avisa que o jogador perdeu e encerra o programa caso as vidas tenham acabado
                 if(warrior.isPedidoMisericordia() == false){
                     this.decidirVidaExtra(warrior.vidaExtra());
                 }
                 
-                InOut.iconeOraculo(this.nome, "Suas vidas acabaram! \nVocê perdeu e fica no Mundo Perdido comigo!");        //tenham acabado
+                InOut.iconeOraculo(this.nome, "Suas vidas acabaram! \nVocê perdeu e fica no Mundo Perdido comigo!");        
                 System.exit(0);
             }
             
@@ -171,23 +170,23 @@ public class Oraculo {
             switch(i){
                 case 0:
                     if(warrior.itemEquipado(6)){
-                        InOut.iconeOraculo("Pedra Supreme", "Como acertou o número de primeira concedo-lhes a resposta dessa charada com o poder da Pedra Supreme");
-                        InOut.iconeOraculo("Pedra Supreme", "buraco");
+                        InOut.iconeOraculo(this.nome, "Como você acertou o número muito rápido, concedo-lhes a resposta dessa charada com o poder da Pedra Supreme");
+                        InOut.iconeOraculo(this.nome, "buraco");
                     }
                 case 1:
                     if(warrior.itemEquipado(0)){
-                        InOut.iconeOraculo("Capacete de Ferro", "Você acertou a charada anterior de primeira concedo-lhes o Capacete de Ferro que contém uma dica");
-                        InOut.iconeOraculo("Capacete de Ferro", "Dica:\nÉ algo molhado");
+                        InOut.iconeOraculo(this.nome, "Você acertou a charada anterior de primeira. Concedo-lhes o Capacete de Ferro que contém uma dica");
+                        InOut.iconeOraculo(this.nome, "Dica:\nÉ algo molhado");
                     }
                 case 2:
                     if(warrior.itemEquipado(2)){
-                        InOut.iconeOraculo("Escudo de Madeira", "Você acertou a charada anterior de primeira concedo-lhes o Escudo de Madeira que contém uma dica");
-                        InOut.iconeOraculo("Escudo de Madeira", "Dica:\nComeça com a");
+                        InOut.iconeOraculo(this.nome, "Você acertou a charada anterior de primeira. Concedo-lhes o Escudo de Madeira que contém uma dica");
+                        InOut.iconeOraculo(this.nome, "Dica:\nComeça com a");
                     }
                 case 3:
                     if(warrior.itemEquipado(3)){
-                        InOut.iconeOraculo("Botas de Couro", "Você acertou a charada anterior de primeira concedo-lhes as Botas de Couro que contém uma dica");
-                        InOut.iconeOraculo("Botas de Couro", "Dica:\nTem 5 letras");
+                        InOut.iconeOraculo(this.nome, "Você acertou a charada anterior de primeira. Concedo-lhes as Botas de Couro que contém uma dica");
+                        InOut.iconeOraculo(this.nome, "Dica:\nTem 5 letras");
                     }
             }
                 
@@ -237,7 +236,7 @@ public class Oraculo {
                     case 3:
                         warrior.equiparItem(4);
                         warrior.aumentarVida();
-                        InOut.MsgSemIcone("Peitoral de Malha", "Pode deixar que eu sou resistente.\nvocê ganhou mais uma vida com o poder do Peitoral de Malha.");
+                        InOut.iconeOraculo(this.nome, "Você acertou a charada anterior de primeira. Concedo-lhes o Peitoral de Malha que lhe dá uma vida");
                         break;
                     }
 

@@ -36,7 +36,8 @@ void main() {
     do{
         if(guerreiro.verificarNome() == false){
         
-        guerreiro.getName(InOut.leStringOraculo("Insira o nome do Guerreiro novamente:")); //tratamento de erro nome guerreiro
+        InOut.MsgDeAviso("Nome Inválido!", "Dê um nome para o Guerreiro");
+        guerreiro.getName(InOut.leStringGuerreiro("Insira o nome do Guerreiro novamente:")); //tratamento de erro nome guerreiro
         }
     }
     while(guerreiro.verificarNome() == false);
@@ -47,6 +48,7 @@ void main() {
     do{
         if(oraculo.verificarNome() == false){
         
+        InOut.MsgDeAviso("Nome Inválido!", "Dê um nome para o Oraculo");
         oraculo.getName(InOut.leStringOraculo("Insira o nome do Oraculo novamente:")); //tratamento de erro nome oraculo
         }
     }
