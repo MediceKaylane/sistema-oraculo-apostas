@@ -91,7 +91,11 @@ public class Oraculo {
         
         if(pedidoMisericordia.length() > 5){
             warrior.aumentarVida();
+            InOut.iconeOraculo(this.nome, "Teu pedido demonstrou merecimento da divina misericórdia, e tu serás recompensado");
             vidaExtra = true;
+        }
+        else{
+            InOut.iconeOraculo(this.nome, "Teu pedido não demonstrou merecimento da divina misericórdia, e tu não serás recompensado");
         }
         
         return vidaExtra;
@@ -130,8 +134,8 @@ public class Oraculo {
     }
     
      public void perdedor (){
-        InOut.iconeOraculo(this.nome, "Sem forças para prosseguir, o Guerreiro" + warrior.getNome() +
-                "sucumbe aos desafios e permanece no Mundo Perdido, esquecido pelo destino.");
+        InOut.iconeOraculo(this.nome, "Sem forças para prosseguir, o Guerreiro " + warrior.getNome() +
+                " sucumbe aos desafios e permanece no Mundo Perdido, esquecido pelo destino.");
     }
      
      /**
@@ -250,10 +254,17 @@ public class Oraculo {
         do
         {
             if(warrior.getQntdVidas() == 0){
+                if(warrior.isPedidoMisericordia() == false){
+                    this.decidirVidaExtra(warrior.vidaExtra());
+                }
+            }
+                
+            if(warrior.getQntdVidas() == 0){
                 InOut.iconeOraculo(this.nome, "Suas vidas acabaram!");
                 perdedor();
                 System.exit(0);
-             }
+            }
+            
                while(true){
                     palavra = InOut.leStringGuerreiro("Insira sua palavra:").toLowerCase();
                 
@@ -278,7 +289,9 @@ public class Oraculo {
              else{
                  InOut.iconeOraculo("Palavra inválida!", "Eles estavam preparados para isso...\nDigite uma palavra válida");
                  ++tentativas;
-                 InOut.iconeOraculo(this.nome, "Sua quantidade de vidas atual: " + warrior.getQntdVidas() + " vidas.");
+                 if(warrior.getQntdVidas() != 1){
+                    InOut.iconeOraculo(this.nome, "Sua quantidade de vidas atual: " + (warrior.getQntdVidas() - 1) + " vidas.");
+                 }
              }
              
              if(soma >= 100){
@@ -290,6 +303,9 @@ public class Oraculo {
                  InOut.iconeOraculo("Quase lá..", "Sua pontuação atual: " + soma + " pontos");
                  warrior.diminuirVida();
                  ++tentativas;
+             }
+             else if (soma == 0){
+                 warrior.diminuirVida();
              }
         }
         while(soma < 100); 
@@ -309,8 +325,11 @@ public class Oraculo {
                 if(warrior.isPedidoMisericordia() == false){
                     this.decidirVidaExtra(warrior.vidaExtra());
                 }
+            }
                 
-                InOut.iconeOraculo(this.nome, "Suas vidas acabaram! \nVocê perdeu e fica no Mundo Perdido comigo!");        
+            if(warrior.getQntdVidas() == 0){
+                InOut.iconeOraculo(this.nome, "Suas vidas acabaram!");
+                perdedor();
                 System.exit(0);
             }
             
@@ -389,8 +408,11 @@ public class Oraculo {
                 if(warrior.isPedidoMisericordia() == false){
                     this.decidirVidaExtra(warrior.vidaExtra());
                 }
+            }
                 
-                InOut.iconeOraculo(this.nome, "Suas vidas acabaram! \nVocê perdeu e fica aqui no Mundo Perdido comigo!");        
+            if(warrior.getQntdVidas() == 0){
+                InOut.iconeOraculo(this.nome, "Suas vidas acabaram!");
+                perdedor();
                 System.exit(0);
             }
             
@@ -419,7 +441,7 @@ public class Oraculo {
                     palavrasUsadas.add(palavra);
                     }
                     else{
-                        InOut.iconeOraculo("Palavra inválida!", "Eles estavam preparados para isso...\nDigite uma palavra válida.");  
+                        InOut.iconeOraculo("Palavra inválida!", "Eles estavam preparados para isso...\nDigite uma palavra válida.");
                     } 
                     
                     if(soma >= 300){
@@ -483,14 +505,17 @@ public class Oraculo {
             InOut.iconeOraculo(this.nome, "No primeiro desafio você deve acertar: \nQual número foi sorteado de 1 a 100 para a tribo liberar sua passagem para o abismo");
         
         
-        for(int i = 0; i < warrior.getVidaInicial() + 1; i++){
+        for(int i = 0; i < warrior.getVidaInicial() + 2; i++){
             
             if(warrior.getQntdVidas() == 0){                                            //Avisa que o jogador perdeu e encerra o programa caso as vidas tenham acabado
                 if(warrior.isPedidoMisericordia() == false){
                     this.decidirVidaExtra(warrior.vidaExtra());
                 }
+            }
                 
-                InOut.iconeOraculo(this.nome, "Suas vidas acabaram! \nVocê perdeu e fica no Mundo Perdido comigo!");        
+            if(warrior.getQntdVidas() == 0){
+                InOut.iconeOraculo(this.nome, "Suas vidas acabaram!");
+                perdedor();
                 System.exit(0);
             }
             
@@ -606,16 +631,18 @@ public class Oraculo {
             while(true){
                 if(warrior.getQntdVidas() == 0){
                     if(warrior.isPedidoMisericordia() == false){
-                    this.decidirVidaExtra(warrior.vidaExtra());
+                        this.decidirVidaExtra(warrior.vidaExtra());
+                    }
                 }
-                    
+                
+                if(warrior.getQntdVidas() == 0){
                     InOut.iconeOraculo(this.nome, "Suas vidas acabaram!");
                     perdedor();
                     System.exit(0);
                 }
                 
                 //Recebe a resposta do jogador em letrar minúsculas e sem espaços. Ex: buraco, um buraco, o buraco, etc
-                respostaJogador = InOut.leStringGuerreiro("Insira sua resposta (sem acentos :)):").toLowerCase().replace(" ", "");
+                respostaJogador = InOut.leStringGuerreiro("Insira sua resposta (sem acentos:) ):").toLowerCase().replace(" ", "");
 
                 if(respostaJogador.contains(respostaCharada)){
                     //Caso o jogador acerte de primeira define a variavel dePrimeira como true
@@ -628,7 +655,13 @@ public class Oraculo {
                 }
                 else{
                     //Caso o jogador erre, aumenta o numero de tentativas e diminui uma vida
-                    InOut.iconeOraculo(this.nome, "Errado, tenta de novo:");
+                    if(warrior.getQntdVidas() == 1){
+                        InOut.iconeOraculo(this.nome, "Tua resposta é errada.");
+                    } else{
+                        InOut.iconeOraculo(this.nome, "Errado, tenta de novo:");
+                        InOut.iconeOraculo(this.nome, "Sua quantidade de vidas atual: " + (warrior.getQntdVidas() - 1) + " vidas.");
+                    }
+                    
                     tentativas++;
                     warrior.diminuirVida();
                 }
