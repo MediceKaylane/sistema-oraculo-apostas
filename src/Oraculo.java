@@ -17,6 +17,12 @@ import java.util.Scanner;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Classe que representa o Oráculo do jogo.
+ * Ele controla os desafios, interação com o jogador
+ * e a progressão entre os níveis.
+ */
+
 public class Oraculo {
     Random random = new Random();
     
@@ -33,7 +39,10 @@ public class Oraculo {
         this.warrior = warrior;
     }
     
-    //inner class pra criar as charadas da segunda fase
+    /**
+     * Classe interna que representa uma charada
+     * com pergunta e resposta.
+     */
     class Charada{
         String pergunta, resposta;
         
@@ -53,16 +62,18 @@ public class Oraculo {
     }
     
     /**
+     * Retorna o guerreiro associado ao oráculo.
      * 
-     * @return 
+     * @return objeto Guerreiro
      */
     public Guerreiro getWarrior() {
         return warrior;
     }
     
     /**
+     * Retorna a lista de charadas do jogo.
      * 
-     * @return 
+     * @return lista de charadas
      */
     public List<Charada> getCharadas() {
         return charadas;
@@ -82,9 +93,8 @@ public class Oraculo {
     }
     
     /**
-     * 
-     * @param pedidoMisericordia
-     * @return 
+     * Decide se o jogador merece uma vida extra
+     * baseado no tamanho do texto digitado.
      */
     public boolean decidirVidaExtra(String pedidoMisericordia){
         boolean vidaExtra = false;
@@ -112,7 +122,16 @@ public class Oraculo {
         ", que inicia sua jornada com " + warrior.getQntdVidas() + " vidas sob seu destino.");
     }
     
-   
+    /**
+     * Exibe um relatório final da partida.
+     * 
+     * Mostra:
+     * - Quantidade de vidas perdidas
+     * - Palpites realizados no nível 1
+     * - Respostas das charadas do nível 2
+     * - Total de tentativas no nível 3
+     */
+    
     public void relatorioPartida(){
         String mensagem = "Ao fim da jornada, revelam-se os feitos do Guerreiro:\n"
             + "As vidas que perdeu: " + warrior.getVidasPerdidas()
@@ -128,11 +147,21 @@ public class Oraculo {
         InOut.iconeOraculo(this.nome, mensagem);
     }
     
+    
+    /**
+     * Exibe a mensagem de vitória do jogador.
+     * Ocorre quando todos os desafios são concluídos com sucesso.
+     */
     public void vencedor (){
         InOut.iconeOraculo(this.nome, "Após superar todos os desafios, o Guerreiro " + warrior.getNome() + 
                 " conquista o Novo Mundo e tem seu nome eternizado entre os dignos.");
     }
     
+    
+    /**
+     * Exibe a mensagem de derrota do jogador.
+     * Ocorre quando o guerreiro fica sem vidas.
+     */
      public void perdedor (){
         InOut.iconeOraculo(this.nome, "Sem forças para prosseguir, o Guerreiro " + warrior.getNome() +
                 " sucumbe aos desafios e permanece no Mundo Perdido, esquecido pelo destino.");
@@ -244,6 +273,17 @@ public class Oraculo {
          
      }
      
+     
+     
+    /**
+    * Fase 1 do nível 3:
+    * O jogador deve inserir palavras válidas até atingir
+    * pelo menos 100 pontos somando o valor das letras.
+    * 
+    * - Palavras repetidas não são permitidas
+    * - Palavras inválidas não pontuam
+    * - A cada erro, o jogador pode perder vidas
+    */
      private void nivel03Fase1(Set<String> dicionario, Map<Character, Integer> tabelaPontuacao) {
          //1 fase, escreve o tanto que quiser até chegar a 100 pontos
         InOut.iconeOraculo(this.nome, "Sua palavra deve ter uma pontuação total de 100 pontos\nEu sei, você não sabe os pontos de cada letra...\nEntão tente deduzir!");
@@ -310,6 +350,16 @@ public class Oraculo {
         }
         while(soma < 100); 
      }
+     
+    /**
+    * Fase 2 do nível 3:
+    * O jogador tem 3 rodadas para somar pelo menos 600 pontos.
+    * 
+    * - Cada rodada aceita uma palavra
+    * - Palavras não podem ser repetidas (nem de fases anteriores)
+    * - Caso não atinja a pontuação mínima, perde uma vida
+    * - Pode tentar novamente enquanto tiver vidas
+    */
      
       private void nivel03Fase2(Set<String> dicionario, Map<Character, Integer> tabelaPontuacao) {
         //fase 2
@@ -389,6 +439,17 @@ public class Oraculo {
         
         
       }
+      
+    /**
+    * Fase 3 do nível 3:
+    * O jogador deve atingir pelo menos 300 pontos em 2 rodadas.
+    * 
+    * Regras:
+    * - Cada palavra pode ter no máximo 6 letras
+    * - Palavras repetidas não são permitidas
+    * - Deve usar palavras válidas do dicionário
+    * - Se não atingir a pontuação mínima, perde uma vida
+    */
       
       private void nivel03Fase3(Set<String> dicionario, Map<Character, Integer> tabelaPontuacao) {
           
@@ -702,8 +763,16 @@ public class Oraculo {
     }
     
     /**
+     * Executa o terceiro nível do jogo.
      * 
-     * @return 
+     * O nível é dividido em 3 fases:
+     * - Fase 1: atingir 100 pontos com palavras
+     * - Fase 2: atingir 600 pontos em 3 rodadas
+     * - Fase 3: atingir 300 pontos com limite de letras
+     * 
+     * Utiliza um dicionário de palavras válidas e uma tabela de pontuação.
+     * 
+     * @return true quando o nível é concluído com sucesso
      */
     public boolean loadLevel03 () {
         
