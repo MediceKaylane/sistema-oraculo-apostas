@@ -84,7 +84,7 @@ public class Oraculo {
     /**
      * 
      * @param pedidoMisericordia
-     * @return 
+     * @return vidaExtra 
      */
     public boolean decidirVidaExtra(String pedidoMisericordia){
         boolean vidaExtra = false;
@@ -108,7 +108,10 @@ public class Oraculo {
         ", que inicia sua jornada com " + warrior.getQntdVidas() + " vidas sob seu destino.");
     }
     
-   
+    
+    /**
+     * 
+     */
     public void relatorioPartida(){
         String mensagem = "Ao fim da jornada, revelam-se os feitos do Guerreiro:\n"
             + "As vidas que perdeu: " + warrior.getVidasPerdidas()
@@ -123,7 +126,7 @@ public class Oraculo {
 
         InOut.iconeOraculo(this.nome, mensagem);
     }
-    
+ 
     public void vencedor (){
         InOut.iconeOraculo(this.nome, "Após superar todos os desafios, o Guerreiro " + warrior.getNome() + 
                 " conquista o Novo Mundo e tem seu nome eternizado entre os dignos.");
