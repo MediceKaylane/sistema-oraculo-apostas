@@ -76,6 +76,11 @@ public class Guerreiro {
     public boolean isPedidoMisericordia() {
         return pedidoMisericordia;
     }
+
+    public void setPedidoMisericordia(boolean pedidoMisericordia) {
+        this.pedidoMisericordia = pedidoMisericordia;
+    }
+    
     
 
     /**
