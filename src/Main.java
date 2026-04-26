@@ -31,6 +31,9 @@ void main() {
     
     Musica.tocar("src/musica/Musica Background.wav");
     
+    Background fundo = new Background();
+    fundo.gerarBack();
+    
     //Objeto guerreiro: Já atribuindo o seu nome pelo o usuario e atribuindo o objeto bolsa a ele
     Guerreiro guerreiro = new Guerreiro (InOut.leStringGuerreiro("Insira o nome do Guerreiro:"), bolsaGuerreiro);
     do{
@@ -60,6 +63,7 @@ void main() {
         
         if(i != 0){
             InOut.iconeOraculo("Engano", "Julgas ter vencido o destino, guerreiro? Enganas-te… o ciclo apenas recomeça, e as provações tornam a chamar teu nome.");
+            guerreiro.setPedidoMisericordia(false);
         }
         oraculo.loadLevel01();
         oraculo.loadLevel02();

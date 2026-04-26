@@ -240,7 +240,11 @@ public class InOut {
 		return Entrada.charAt(0);
 	}
         
-        
+        /**
+        * Exibe uma mensagem com o ícone do guerreiro.
+        * 
+        * @param frase mensagem a ser exibida
+        */
 
         public static void iconeGuerreiro(String frase){
 
@@ -256,6 +260,14 @@ public class InOut {
                 icon
             );
         }
+        
+        /**
+        * Exibe uma caixa de entrada com o ícone do guerreiro
+        * e retorna o texto digitado pelo usuário.
+        * 
+        * @param frase mensagem exibida ao usuário
+        * @return texto digitado
+        */
         
         public static String leStringGuerreiro(String frase){
             String Entrada;
@@ -275,6 +287,15 @@ public class InOut {
             ); 
             return Entrada;
         }
+        
+        
+        /**
+        * Lê um número inteiro do usuário com tratamento de erro.
+        * Continua pedindo até o usuário digitar um valor válido.
+        * 
+        * @param frase mensagem exibida
+        * @return número inteiro digitado ou -1 se cancelar
+        */
         
         public static int leIntGuerreiro(String frase){
             int num = 0;
@@ -321,7 +342,12 @@ public class InOut {
             return num;
         }
         
-        
+        /**
+        * Exibe uma mensagem com o ícone do oráculo.
+        * 
+        * @param nome nome do oráculo
+        * @param frase mensagem a ser exibida
+        */
 
         public static void iconeOraculo(String nome, String frase){
 
@@ -337,6 +363,14 @@ public class InOut {
                 icon
             );
         }
+        
+        /**
+        * Exibe uma caixa de entrada com o ícone do oráculo
+        * e retorna o texto digitado.
+        * 
+        * @param frase mensagem exibida
+        * @return texto digitado pelo usuário
+        */
         
         public static String leStringOraculo(String frase){
             String Entrada;
